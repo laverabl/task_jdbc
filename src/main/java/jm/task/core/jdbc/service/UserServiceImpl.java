@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
 
     public void saveUser(String name, String lastName, byte age) {
         userDaoJDBC.saveUser(name, lastName, age);
-//        System.out.println("ALL GOD!");
     }
 
     public void removeUserById(long id) {
