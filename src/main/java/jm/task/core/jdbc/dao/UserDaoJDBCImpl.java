@@ -18,7 +18,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 + "(id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "Name VARCHAR(20), "
                 + "Lastname VARCHAR(45),"
-                + "Age INT(3))";
+                + "Age TINYINT)";
 
 
         try(Statement st = connection.createStatement() ) {
