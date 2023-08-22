@@ -8,11 +8,8 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.Connection;
 
 public class Main {
+    private static UserService userService = new UserServiceImpl();
     public static void main(String[] args) {
-        Util util = new Util();
-        Connection connection = util.getConection();
-
-        UserService userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("Иван", "Мудинов", (byte) 21);
         userService.saveUser("Sam", "Мудинов", (byte) 26);
