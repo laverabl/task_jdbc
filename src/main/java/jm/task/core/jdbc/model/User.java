@@ -61,10 +61,12 @@ public class User {
     }
 
     @Override
-
-    public  String toString() {
-        return "USER{"
-                + "ID=" + getId() + ", NAME=" + getName() +
-                ", LASTNAME=" + getLastName() + ", AGE=" + getAge() + "}";
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
