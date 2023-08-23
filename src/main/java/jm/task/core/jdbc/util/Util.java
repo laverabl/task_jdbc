@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.util;
 
 
+import jm.task.core.jdbc.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -10,9 +11,7 @@ public class Util{
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = new Configuration().buildSessionFactory();
-        }
+        sessionFactory = new Configuration().addAnnotatedClass(User.class).buildSessionFactory();
         return  sessionFactory;
     }
 
