@@ -39,17 +39,17 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-//        try (Session session = getSessionFactory().openSession()) {
-//            Transaction transaction = session.beginTransaction();
-//
-//            String HQL = "DROP TABLE IF EXISTS USERS";
-//
-//            Query query = session.createSQLQuery(HQL).addEntity(User.class);
-//            query.executeUpdate();
-//            transaction.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try (Session session = getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            String HQL = "DROP TABLE IF EXISTS USERS";
+
+            Query query = session.createSQLQuery(HQL).addEntity(User.class);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -96,15 +96,12 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() {
-        SessionFactory sessionFactory = Util.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-
-        try (sessionFactory; session) {
-            session.beginTransaction();
-            session.createQuery("DELETE FROM User").executeUpdate();
-            session.getTransaction().commit();
-        } catch (IllegalStateException e) {
-            session.getTransaction().rollback();
+        Transaction transaction;
+        try (Session session = Util.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table USERS").executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
