@@ -19,8 +19,9 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
+        Transaction transaction = null;
         try (Session session = getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
 
             String HQL = "CREATE TABLE IF NOT EXISTS USERS" +
                     "(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
@@ -31,14 +32,16 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
         }
     }
 
     @Override
     public void dropUsersTable() {
+        Transaction transaction = null;
         try (Session session = getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
 
             String HQL = "DROP TABLE IF EXISTS USERS";
 
@@ -46,6 +49,7 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
         }
     }
@@ -69,7 +73,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-        Transaction transaction;
+        Transaction transaction = null;
         String str = "DELETE FROM User WHERE id = :id";
         try (Session session = getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -79,6 +83,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
 
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
         }
     }
